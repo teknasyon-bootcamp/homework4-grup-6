@@ -40,10 +40,10 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`Id`, `Title`, `Content`, `Imageurl`, `Time`) VALUES
-(1, 'Test Başlık 1', 'Test Başlık 2', NULL, '0000-00-00 00:00:00'),
-(4, 'PHP DEVELOPER', 'BOOTCAMP', 'http://localhost/images/efe-buyuk.jpg', '2021-09-09 16:58:33'),
-(6, 'Hazırıız', 'görselli blog yazılımı', 'http://localhost/images/677281-1665030429.jpg', '2021-09-09 17:38:22'),
-(7, 'Hazırıız', 'görselli blog yazılımı', 'http://localhost/images/677281-1665030429.jpg', '2021-09-09 17:39:06');
+(1, 'Yusuf USTA', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vitae molestie purus. Quisque a gravida turpis. Praesent at dictum enim, eu', ./images/84d36e6e-ad91-402d-bfeb-12317ae4d1e6.jpg, '0000-00-00 00:00:00'),
+(2, 'Efe BUYUK', 'Curabitur auctor velit metus, non luctus neque tincidunt vel. Nullam at eros nec nunc consequat accumsan a sed nunc. Proin nulla elit, ornare porta', './images/efe-buyuk.jpg', '0000-00-00 00:00:00'),
+(3, 'Samet Utku OLGUN', 'Diam ut, ornare scelerisque neque. Fusce cursus mollis justo at maximus. Aliquam pellentesque quam sed urna accumsan pulvinar. Proin ultricies', './images/samet-utku-olgun.jpg', '0000-00-00 00:00:00'),
+(4, 'Cihad ALKIS', 'Ut ornare. Suspendisse malesuada mauris risus, id eleifend erat finibus non. Maecenas et imperdiet libero. Curabitur pretium cursus consequat.', './images/cihat-alkis.jpg', '0000-00-00 00:00:00');
 
 --
 -- Indexes for dumped tables
