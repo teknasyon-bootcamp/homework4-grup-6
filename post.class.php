@@ -96,15 +96,15 @@ class Post extends Db
 		<div class="time"><?php echo $data["Time"]; ?> </div>
 		
 		
-		<a class="btn btn-warning btn-sm float-right mx-2" href="<?php echo !empty(
+		<a class="btn btn-danger btn-sm float-right mx-2" href="<?php echo !empty(
       $this->manage
   )
       ? "manage.php"
-      : "index.php"; ?>?post=<?php echo $key; ?>" role="button">Görüntüle</a> 
+      : "index.php"; ?>?post=<?php echo $key; ?>" role="button">Sil</a> 
 		
 		<?php if ($manage) { ?> 
 		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=edit&post=<?php echo $key; ?>" role="button">Düzenle</a> 
-		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Sil</a> 
+		<a class="btn btn-info btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Görüntüle</a> 
 		<?php } ?>
       </div>
 	  <?php if (!empty($data["Imageurl"])) { ?>
