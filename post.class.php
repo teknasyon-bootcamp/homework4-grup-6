@@ -100,11 +100,11 @@ class Post extends Db
       $this->manage
   )
       ? "manage.php"
-      : "index.php"; ?>?post=<?php echo $key; ?>" role="button">Sil</a> 
+      : "index.php"; ?>?post=<?php echo $key; ?>" role="button">Göster</a> 
 		
 		<?php if ($manage) { ?> 
 		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=edit&post=<?php echo $key; ?>" role="button">Düzenle</a> 
-		<a class="btn btn-info btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Görüntüle</a> 
+		<a class="btn btn-info btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Sil</a> 
 		<?php } ?>
       </div>
 	  <?php if (!empty($data["Imageurl"])) { ?>
