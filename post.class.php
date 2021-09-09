@@ -9,7 +9,20 @@ class Post extends Db
     {
         $this->manage = $manage; // Veritabanından bütün post verilerini çekme.
         $this->posts = $this->getPostDetails();
-        $this->listPost();
+		$action = 0;
+        if (isset($_GET["action"])) {
+            $action = $_GET["action"];
+        }
+        switch ($action) {
+            case "create":
+                $this->createForm();
+                break;
+            case "store":
+                $this->createFormPost();
+                break;
+            default: 
+                $this->listPost();
+        }
     }
     public function getSelectPostList(int $manage = 0)
     {
@@ -25,49 +38,42 @@ class Post extends Db
         $this->posts = $this->getSelectPostDetails($id);
         switch ($action) {
             case "create":
-                $this->createPost();
+                $this->createForm();
                 break;
             case "store":
-                $this->storePost();
+                $this->createFormPost();
                 break;
             case "edit":
-                $this->editPost();
+                $this->editForm($id);
                 break;
             case "update":
-                $this->updatePost();
+				$this->editFormPost($id);
                 break;
-            case "deletePost":
-                $this->deletePost();
+            case "delete":
+                $this->getDeletePost($id);
                 break;
-            default:
+            default: 
+				echo "";
                 $this->listPost();
         }
-    }
-    public function storePost()
-    {
-        $manage = $this->manage;
-        $posts = $this->posts;
-        echo "Store";
-    }
-    public function editPost()
-    {
-        $manage = $this->manage;
-        $posts = $this->posts;
-        echo "Edit";
     }
     public function listPost()
     {
         $manage = $this->manage;
         $posts = $this->posts;
-
+		if(!empty($this->manage)){ 
+		echo '<div class="row mt-3" style="display:block;"><a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=create" role="button">İçerik Ekle</a><div style="display:block;clear:both"></div></div>';
+		} 
         if (is_array($posts)) {
             if (count($posts) == 1) {
                 // Seçilen Post
-                $this->viewPost(1, $posts[0]);
+				if(!empty($posts[0]["Id"])){ 
+					$this->viewPost($posts[0]["Id"], $posts[0]);
+				}
             } elseif (count($posts) > 1) {
                 // Post Listeleme
                 foreach ($posts as $key => $val) {
-                    $this->viewPost($key, $val);
+                    $this->viewPost($val["Id"], $val);
                 }
             } else {
                 // Post Not Found
@@ -81,87 +87,123 @@ class Post extends Db
         $manage = $this->manage;
         $posts = $this->posts;
         ?>
-	<div class="postview card" style="border:1px solid #fff;padding:10px;margin:10px;">
-	<div class="title"><?php echo $data["Title"]; ?></div>
-	<div class="content"><?php echo $data["Content"]; ?></div>
-	<div class="time"><?php echo $data["Time"]; ?> </div>
-	<div class="button"><button>Görüntüle</button> <?php if (
-     $manage
- ) { ?><button>Düzenle</button> <button>Sil</button> <?php } ?></div>
-	</div>
+	<div class="row mt-3">
+      <!-- row - start -->
+      <div class="col-sm-10 " style="font-family:verdana;">
+        <!-- about us - start-->
+        <h2><?php echo $data["Title"]; ?></h2>
+        <p><?php echo $data["Content"]; ?></p>
+		<div class="time"><?php echo $data["Time"]; ?> </div>
+		
+		
+		<a class="btn btn-warning btn-sm float-right mx-2" href="<?php echo (!empty($this->manage) ? "manage.php" : "index.php")?>?post=<?php echo $key; ?>" role="button">Görüntüle</a> 
+		
+		<?php if ($manage) { ?> 
+		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=edit&post=<?php echo $key; ?>" role="button">Düzenle</a> 
+		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Sil</a> 
+		<?php } ?>
+      </div>
+	  <?php if(!empty($data["Imageurl"])){ ?>
+      <div class="col-sm-2 mt-3"> 
+        <img
+        class="img-thumbnail btn"
+        src="<?php echo $data["Imageurl"]; ?>"
+        alt=""
+        style="max-width: 120px;"
+      />
+      <!-- about us - end-->
+      </div>
+	  <?php } ?>
+    </div>
 	<?php
+	}
+	public function createFormPost(){
+	if(!empty($_POST["title"])){
+	$title=$_POST["title"];
+	$content = $_POST["content"];
+	$image = $_POST["image"];
+	$this->addPost($title,$content,$image);
+	echo 'Başarılı bir şekilde eklendi. <a href="manage.php">Geri Dön</a>';
+	}else{
+	echo "Hata";
+	}
+	}
+	public function formPost(){
+	if(!empty($_POST["title"])){
+	$title=$_POST["title"];
+	$content = $_POST["content"];
+	$image = $_POST["image"];
+	$this->addPost($title,$content,$image);
+	}
+	}
+    public function createForm()
+    { 
+	$action = "manage.php?action=store";
+	?>
+	<form method="post" action="<?php echo $action; ?>">
+                            <div class="form-group">
+                              <label for="exampleFormControlInput1">Title</label>
+                              <input type="text" class="form-control" id="exampleFormControlInput1" name="title" required>
+                              <small id="emailHelp" class="form-text text-muted">Bizden başkası bilmeyecek korkma.. :)</small>
+                            </div>
+							<div class="form-group">
+                              <label for="exampleFormControlInput1">Image URL</label>
+                              <input type="text" class="form-control" id="exampleFormControlInput1" name="image">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">İçerik</label>
+                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">Gönder/Güncelle</button>
+    </form>
+	<?php 
     }
-
-    public function createPost()
-    {
-        $errors = [];
-        $title = $_POST["title"] ?? null;
-        $content = $_POST["content"] ?? null;
-
-        if (!$title) {
-            $errors[] = "Post başlığı gereklidir";
-        }
-        if (!$content) {
-            $errors[] = "Post içeriği gereklidir";
-        }
-
-        if (!empty($errors)) { ?> <div class = "alert alert-danger">
-            <?php foreach ($errors as $error): ?>
-              <div><?php echo $error; ?> </div>
-            <?php endforeach; ?>
-            </div> <?php } else {$sql = "INSERT INTO products (title, content) 
-            VALUES (:title, :content)";
-            $statement = $this->connection()->prepare($sql);
-            $statement->bindValue(":title", $title);
-            $statement->bindValue(":content", $content);
-            $statement->execute();
-
-            header("location:index.php");}
+	public function editForm($id=0)
+    { 
+	$title="";
+	$imageurl="";
+	$content="";
+	
+	if(!empty($id)){
+	// SQL KOMUTLARI
+	$getPostView = $this->getPostView();
+	
+	$title="";
+	$imageurl="";
+	$content="";
+	
+	$action = "manage.php?action=update&post=$id";
+	}
+	?>
+	<form method="post" action="<?php echo $action; ?>">
+                            <div class="form-group">
+                              <label for="exampleFormControlInput1">Title</label>
+                              <input type="text" class="form-control" id="exampleFormControlInput1" name="title" required value="<?php echo $title; ?>">
+                              <small id="emailHelp" class="form-text text-muted">Bizden başkası bilmeyecek korkma.. :)</small>
+                            </div>
+							<div class="form-group">
+                              <label for="exampleFormControlInput1">Image URL</label>
+                              <input type="text" class="form-control" id="exampleFormControlInput1" name="image" required value="<?php echo $imageurl; ?>">
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">İçerik</label>
+                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content" required><?php echo $content; ?></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success">Gönder/Güncelle</button>
+    </form>
+	<?php 
     }
-
-    public function deletePost()
+	public function editFormPost($id){
+	if(!empty($_POST["title"])){
+	$title=$_POST["title"];
+	$content = $_POST["content"];
+	$image = $_POST["image"];
+	$this->updatePost($id,$title,$content,$image);
+	}
+	}
+    public function getDeletePost(int $id)
     {
-        $id = $_GET["id"] ?? null;
-        if (!$id) {
-            header("location:index.php");
-        }
-        $sql = "DELETE FROM posts WHERE id = :id";
-        $statement = $this->connection()->prepare($sql);
-        $statement->bindValue(":id", $id);
-        $statement->execute();
-
-        header("location:index.php");
-    }
-
-    public function updatePost()
-    {
-        $id = $_GET["id"] ?? null;
-        if (!$id) {
-            header("location:index.php");
-        }
-        $errors = [];
-        $title = $_POST["title"] ?? null;
-        $content = $_POST["content"] ?? null;
-
-        if (!$title) {
-            $errors[] = "Post başlığı gereklidir";
-        }
-        if (!$content) {
-            $errors[] = "Post içeriği gereklidir";
-        }
-
-        if (!empty($errors)) { ?> <div class = "alert alert-danger">
-            <?php foreach ($errors as $error): ?>
-              <div><?php echo $error; ?> </div>
-            <?php endforeach; ?>
-            </div> <?php } else {$sql =
-                "UPDATE products SET title = :title, content = :content WHERE id = :id)";
-            $statement = $this->connection()->prepare($sql);
-            $statement->bindValue(":title", $title);
-            $statement->bindValue(":content", $content);
-            $statement->bindValue(":id", $id);
-            $statement->execute();
-
-            header("location:index.php");}
+		$this->deletePost($id);
+		echo 'Başarılı bir şekilde silindi. <a href="manage.php">Geri Dön</a>';
     }
 }

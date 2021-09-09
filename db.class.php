@@ -1,7 +1,7 @@
 <?php
 class Db
 {
-    private string $host = "172.27.0.1";
+    private string $host = "mariadb";
     private string $port = "3306";
     private string $dbname = "default";
     private string $username = "default";
@@ -45,4 +45,55 @@ class Db
             echo "Veritabanı hatası: " . $e->getMessage();
         }
     }
+	protected function addPost(string $title,string $content,string $image)
+    {
+        try {
+			$sql = "INSERT INTO posts (Title, Content, Imageurl) VALUES (:Title, :Content, :Imageurl)";
+            $statement = $this->connection()->prepare($sql);
+            $statement->bindValue(":Title", $title);
+            $statement->bindValue(":Content", $content);
+			$statement->bindValue(":Imageurl", $image);
+            $statement->execute();
+        } catch (Exception $e) {
+            echo "Veritabanı hatası: " . $e->getMessage();
+        }
+    }
+	protected function getPostView(int $id)
+    {
+        try {
+			//Düzenle formu için id değişkinine ait içerik bilgileri return edilecek.
+			
+        } catch (Exception $e) {
+            echo "Veritabanı hatası: " . $e->getMessage();
+        }
+    }
+	
+	protected function updatePost(int $id,string $title,string $content,string $imageurl)
+    {
+        try {
+			//Düzenle formu için id değişkinine ait içerik bilgileri return edilecek.
+			$sql = "UPDATE products SET title = :title, content = :content WHERE id = :id)";
+            $statement = $this->connection()->prepare($sql);
+            $statement->bindValue(":title", $title);
+            $statement->bindValue(":content", $content);
+            $statement->bindValue(":id", $id);
+            $statement->execute();
+
+        } catch (Exception $e) {
+            echo "Veritabanı hatası: " . $e->getMessage();
+        }
+    }
+	protected function deletePost(int $id)
+    {
+        try {
+			//Düzenle formu için id değişkinine ait içerik bilgileri return edilecek.
+			$sql = "DELETE FROM posts WHERE Id = :Id";
+			$statement = $this->connection()->prepare($sql);
+			$statement->bindValue(":Id", $id);
+			$statement->execute();
+        } catch (Exception $e) {
+            echo "Veritabanı hatası: " . $e->getMessage();
+        }
+    }
+	
 }

@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Anamakine: mariadb
--- Üretim Zamanı: 08 Eyl 2021, 16:18:28
--- Sunucu sürümü: 10.6.4-MariaDB-1:10.6.4+maria~focal
--- PHP Sürümü: 7.4.20
+-- Host: mariadb
+-- Generation Time: Sep 09, 2021 at 02:40 PM
+-- Server version: 10.6.4-MariaDB-1:10.6.4+maria~focal
+-- PHP Version: 7.4.20
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,49 +18,52 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Veritabanı: `default`
+-- Database: `default`
 --
 
 -- --------------------------------------------------------
 
 --
--- Tablo için tablo yapısı `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
   `Id` int(11) NOT NULL,
   `Title` text NOT NULL,
   `Content` longtext NOT NULL,
-  `Time` datetime NOT NULL
+  `Imageurl` text DEFAULT NULL,
+  `Time` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Tablo döküm verisi `posts`
+-- Dumping data for table `posts`
 --
 
-INSERT INTO `posts` (`Id`, `Title`, `Content`, `Time`) VALUES
-(1, 'Test Başlık 1', 'Test Başlık 2', '0000-00-00 00:00:00'),
-(2, 'Başlık 2', 'İçerik 2', '2021-09-08 15:01:24');
+INSERT INTO `posts` (`Id`, `Title`, `Content`, `Imageurl`, `Time`) VALUES
+(1, 'Test Başlık 1', 'Test Başlık 2', NULL, '0000-00-00 00:00:00'),
+(4, 'PHP DEVELOPER', 'BOOTCAMP', 'http://localhost/images/efe-buyuk.jpg', '2021-09-09 16:58:33'),
+(6, 'Hazırıız', 'görselli blog yazılımı', 'http://localhost/images/677281-1665030429.jpg', '2021-09-09 17:38:22'),
+(7, 'Hazırıız', 'görselli blog yazılımı', 'http://localhost/images/677281-1665030429.jpg', '2021-09-09 17:39:06');
 
 --
--- Dökümü yapılmış tablolar için indeksler
+-- Indexes for dumped tables
 --
 
 --
--- Tablo için indeksler `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Dökümü yapılmış tablolar için AUTO_INCREMENT değeri
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- Tablo için AUTO_INCREMENT değeri `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

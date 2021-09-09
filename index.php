@@ -5,7 +5,7 @@ include_once "post.class.php";
   <head>
     <style>
       body {
-    background-image: url('0x0-03.jpg');
+    background-image: url('./images/0x0-03.jpg');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -45,14 +45,14 @@ include_once "post.class.php";
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="677281-1665030429.jpg" class="d-block w-100" height="600" alt="..." style="max-height: 600px;">
+        <img src="./images/677281-1665030429.jpg" class="d-block w-100" height="600" alt="..." style="max-height: 600px;">
       </div>
       <div class="carousel-item">
-        <img src="e4bd76f627bcc9da8b85b844669a1c41.jpg" class="d-block w-100" height="600" alt="..."
+        <img src="./images/e4bd76f627bcc9da8b85b844669a1c41.jpg" class="d-block w-100" height="600" alt="..."
         style="max-height: 600px;">
       </div>
       <div class="carousel-item">
-        <img src="movie-avengers-infinity-war-thor-wallpaper-preview.jpg" class="d-block w-100" height="600" alt="" style="max-height: 600px;"> 
+        <img src="./images/movie-avengers-infinity-war-thor-wallpaper-preview.jpg" class="d-block w-100" height="600" alt="" style="max-height: 600px;"> 
       </div>
     </div>
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -64,127 +64,17 @@ include_once "post.class.php";
       <span class="sr-only">Next</span>
     </a>
   </div>
+  
   <div class="container mt-5">
-    <div class="row mt-3">
-      <!-- row - start -->
-      <div class="col-sm-10 " style="font-family:verdana;">
-        <!-- about us - start-->
-        <h2>Yusuf USTA</h2>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-          Voluptates, quos.
-        </p>
-        <p>
-          Unde, enim. Optio voluptates quo doloribus cupiditate omnis ipsa
-          voluptatum.
-        </p>
-        <p>Doloribus vero eaque ut harum omnis a ratione nihil ex.</p>
-        <p>
-          Tenetur, vel quas quos amet reiciendis asperiores quae possimus
-          repellat!
-        </p>
-        <a class="btn btn-warning btn-sm float-right mx-2" href="manage.php" role="button">Görüntüle</a>
-      </div>
-      <div class="col-sm-2 mt-3"> 
-        <img
-        class="img-thumbnail btn"
-        src="84d36e6e-ad91-402d-bfeb-12317ae4d1e6.jpg"
-        alt=""
-        style="max-width: 120px;"
-      />
-      <!-- about us - end-->
-      </div>
-    </div>
-    <div class="row mt-3" style="font-family:verdana;">
-        <!-- row - start -->
-        <div class="col-sm-10">
-          <!-- about us - start-->
-          <h2>Efe BUYUK</h2>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptates, quos.
-          </p>
-          <p>
-            Unde, enim. Optio voluptates quo doloribus cupiditate omnis ipsa
-            voluptatum.
-          </p>
-          <p>Doloribus vero eaque ut harum omnis a ratione nihil ex.</p>
-          <p>
-            Tenetur, vel quas quos amet reiciendis asperiores quae possimus
-            repellat!
-          </p>
-          <a class="btn btn-warning btn-sm float-right mx-2" href="manage.php" role="button">Görüntüle</a>
-        </div>
-        <div class="col-sm-2 mt-5">
-          <img
-          class="w-100 img-thumbnail btn"
-          src="efe-buyuk.jpg"
-          alt=""
-        />
-          
-        <!-- about us - end-->
-        </div>
-    </div>
-    <div class="row mt-3" style="font-family:verdana;">
-        <!-- row - start -->
-        <div class="col-sm-10">
-          <!-- about us - start-->
-          <h2>Samet Utku OLGUN</h2>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptates, quos.
-          </p>
-          <p>
-            Unde, enim. Optio voluptates quo doloribus cupiditate omnis ipsa
-            voluptatum.
-          </p>
-          <p>Doloribus vero eaque ut harum omnis a ratione nihil ex.</p>
-          <p>
-            Tenetur, vel quas quos amet reiciendis asperiores quae possimus
-            repellat!
-          </p>
-          <a class="btn btn-warning btn-sm float-right mx-2" href="manage.php" role="button">Görüntüle</a>
-        </div>
-        <div class="col-sm-2 mt-5">
-          <img
-          class="w-100 img-thumbnail btn"
-          src="samet-utku-olgun.jpg"
-          alt=""
-        />
-          
-        <!-- about us - end-->
-        </div>
-    </div>
-    <div class="row mt-3" style="font-family:verdana;">
-        <!-- row - start -->
-        <div class="col-sm-10">
-          <!-- about us - start-->
-          <h2>Cihad ALKIS</h2>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-            Voluptates, quos.
-          </p>
-          <p>
-            Unde, enim. Optio voluptates quo doloribus cupiditate omnis ipsa
-            voluptatum.
-          </p>
-          <p>Doloribus vero eaque ut harum omnis a ratione nihil ex.</p>
-          <p>
-            Tenetur, vel quas quos amet reiciendis asperiores quae possimus
-            repellat!
-          </p>
-          <a class="btn btn-warning btn-sm float-right mx-2" href="manage.php" role="button">Görüntüle</a>
-        </div>
-        <div class="col-sm-2 mt-5">
-          <img
-          class="w-100 img-thumbnail btn"
-          src="cihat-alkis.jpg"
-          alt=""
-        />
-          
-        <!-- about us - end-->
-        </div>
-    </div>
+  <?php 
+$posts = new Post;
+if(!isset($_GET["post"])){ // Bütün içerikler listelenir
+$posts->getPostList();
+}else{ // Post parametresindeki id degerine göre işlem yapılır veya içerik görüntülenir.
+$posts->getSelectPostList();
+}
+?>
+  </div>
     <footer class="container py-5">
       <div class="row">
         <div class="col-12 col-md" style="font-family:verdana;">
@@ -223,6 +113,7 @@ include_once "post.class.php";
             <li><a class="text-dark" href="https://github.com/cihatalkis" target="_blank">Github</a></li>
           </ul>
         </div>
+		
       </div>
     </footer>
 
@@ -231,13 +122,6 @@ include_once "post.class.php";
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<?php 
-$posts = new Post;
-if(!isset($_GET["post"])){ // Bütün içerikler listelenir
-$posts->getPostList();
-}else{ // Post parametresindeki id degerine göre işlem yapılır veya içerik görüntülenir.
-$posts->getSelectPostList();
-}
-?>
+
 </body>
 </html>
