@@ -96,14 +96,14 @@ class Post extends Db
 		<div class="time"><?php echo $data["Time"]; ?> </div>
 		
 		
-		<?php if ($manage) { ?> 
-		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=edit&post=<?php echo $key; ?>" role="button">Düzenle</a> 
-		<a class="btn btn-danger btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Sil</a> 
+		<?php if ($manage) { ?>
+        <a class="btn btn-danger btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Sil</a>  
+		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=edit&post=<?php echo $key; ?>" role="button">Düzenle</a>
 		<?php } ?>
-	      	<a class="btn btn-info btn-sm float-right mx-2" href="<?php echo !empty($this->manage)
-      		? "manage.php"
-      		: "index.php"; ?>?post=<?php echo $key; ?>" role="button">Göster
-        	</a>
+        <a class="btn btn-info btn-sm float-right mx-2" href="<?php echo !empty($this->manage)
+      ? "manage.php"
+      : "index.php"; ?>?post=<?php echo $key; ?>" role="button">Göster
+        </a> 
       </div>
 	  <?php if (!empty($data["Imageurl"])) { ?>
       <div class="col-sm-2 mt-3"> 
