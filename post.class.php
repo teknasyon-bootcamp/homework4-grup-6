@@ -96,15 +96,15 @@ class Post extends Db
 		<div class="time"><?php echo $data["Time"]; ?> </div>
 		
 		
-		<a class="btn btn-danger btn-sm float-right mx-2" href="<?php echo !empty(
+		<a class="btn btn-warning btn-sm float-right mx-2" href="<?php echo !empty(
       $this->manage
   )
       ? "manage.php"
-      : "index.php"; ?>?post=<?php echo $key; ?>" role="button">Sil</a> 
+      : "index.php"; ?>?post=<?php echo $key; ?>" role="button">Görüntüle</a> 
 		
 		<?php if ($manage) { ?> 
 		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=edit&post=<?php echo $key; ?>" role="button">Düzenle</a> 
-		<a class="btn btn-info btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Görüntüle</a> 
+		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Sil</a> 
 		<?php } ?>
       </div>
 	  <?php if (!empty($data["Imageurl"])) { ?>
@@ -148,7 +148,7 @@ class Post extends Db
 	<form method="post" action="<?php echo $action; ?>">
                             <div class="form-group">
                               <label for="exampleFormControlInput1">Title</label>
-                              <input type="text" class="form-control" id="exampleFormControlInput1" name="title" required>
+                              <input type="text" class="form-control" id="exampleFormControlInput1" name="title" required value>
                               <small id="emailHelp" class="form-text text-muted">Bizden başkası bilmeyecek korkma.. :)</small>
                             </div>
 							<div class="form-group">
@@ -157,7 +157,7 @@ class Post extends Db
                             </div>
                             <div class="form-group">
                               <label for="exampleFormControlTextarea1">İçerik</label>
-                              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content"></textarea>
+                              <textarea class="form-control" id="exampleFormControlTextarea1" required value rows="3" name="content"></textarea>
                             </div>
                             <button type="submit" class="btn btn-success">Gönder/Güncelle</button>
     </form>
@@ -165,19 +165,16 @@ class Post extends Db
     }
     public function editForm($id = 0)
     {
-        $title = "";
-        $imageurl = "";
-        $content = "";
-
         if (!empty($id)) {
-            // SQL KOMUTLARI
-            $getPostView = $this->getPostView();
-
-            $title = "";
-            $imageurl = "";
-            $content = "";
-
+            $datas = $this->getSelectPostDetails($id);
+            foreach($datas as $key => $data){
+                $title = $data[1];
+                $content = $data[2];
+                $imageurl = $data[4];
+            }
+        
             $action = "manage.php?action=update&post=$id";
+
         }
         ?>
 	<form method="post" action="<?php echo $action; ?>">
@@ -205,6 +202,7 @@ class Post extends Db
             $content = $_POST["content"];
             $image = $_POST["image"];
             $this->updatePost($id, $title, $content, $image);
+            echo 'Başarılı bir şekilde güncelleme yapıldı. <a href="manage.php">Geri Dön</a>';
         }
     }
     public function getDeletePost(int $id)

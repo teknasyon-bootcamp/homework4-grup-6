@@ -65,14 +65,6 @@ class Db
             echo "Veritabanı hatası: " . $e->getMessage();
         }
     }
-    protected function getPostView(int $id)
-    {
-        try {
-            //Düzenle formu için id değişkinine ait içerik bilgileri return edilecek.
-        } catch (Exception $e) {
-            echo "Veritabanı hatası: " . $e->getMessage();
-        }
-    }
 
     protected function updatePost(
         int $id,
@@ -81,13 +73,13 @@ class Db
         string $imageurl
     ) {
         try {
-            //Düzenle formu için id değişkinine ait içerik bilgileri return edilecek.
             $sql =
-                "UPDATE products SET title = :title, content = :content WHERE id = :id)";
+                "UPDATE posts SET Title = :Title, Content = :Content, Imageurl= :Imageurl WHERE Id = :Id";
             $statement = $this->connection()->prepare($sql);
-            $statement->bindValue(":title", $title);
-            $statement->bindValue(":content", $content);
-            $statement->bindValue(":id", $id);
+            $statement->bindValue(":Title", $title);
+            $statement->bindValue(":Content", $content);
+            $statement->bindValue(":Id", $id);
+            $statement->bindValue(":Imageurl", $imageurl);
             $statement->execute();
         } catch (Exception $e) {
             echo "Veritabanı hatası: " . $e->getMessage();
