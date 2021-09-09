@@ -168,7 +168,7 @@ class Post extends Db
             foreach($datas as $key => $data){
                 $title = $data[1];
                 $content = $data[2];
-                $imageurl = $data[4];
+                $imageurl = $data[3];
             }
         
             $action = "manage.php?action=update&post=$id";
