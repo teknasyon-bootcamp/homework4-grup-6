@@ -166,9 +166,9 @@ class Post extends Db
         if (!empty($id)) {
             $datas = $this->getSelectPostDetails($id);
             foreach($datas as $key => $data){
-                $title = $data[1];
-                $content = $data[2];
-                $imageurl = $data[3];
+                $title = $data['Title'];
+                $content = $data['Content'];
+                $imageurl = $data['Imageurl'];
             }
         
             $action = "manage.php?action=update&post=$id";
