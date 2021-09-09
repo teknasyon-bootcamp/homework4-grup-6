@@ -9,7 +9,7 @@ class Post extends Db
     {
         $this->manage = $manage; // Veritabanından bütün post verilerini çekme.
         $this->posts = $this->getPostDetails();
-		$action = 0;
+        $action = 0;
         if (isset($_GET["action"])) {
             $action = $_GET["action"];
         }
@@ -20,7 +20,7 @@ class Post extends Db
             case "store":
                 $this->createFormPost();
                 break;
-            default: 
+            default:
                 $this->listPost();
         }
     }
@@ -47,13 +47,13 @@ class Post extends Db
                 $this->editForm($id);
                 break;
             case "update":
-				$this->editFormPost($id);
+                $this->editFormPost($id);
                 break;
             case "delete":
                 $this->getDeletePost($id);
                 break;
-            default: 
-				echo "";
+            default:
+                echo "";
                 $this->listPost();
         }
     }
@@ -61,15 +61,15 @@ class Post extends Db
     {
         $manage = $this->manage;
         $posts = $this->posts;
-		if(!empty($this->manage)){ 
-		echo '<div class="row mt-3" style="display:block;"><a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=create" role="button">İçerik Ekle</a><div style="display:block;clear:both"></div></div>';
-		} 
+        if (!empty($this->manage)) {
+            echo '<div class="row mt-3" style="display:block;"><a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=create" role="button">İçerik Ekle</a><div style="display:block;clear:both"></div></div>';
+        }
         if (is_array($posts)) {
             if (count($posts) == 1) {
                 // Seçilen Post
-				if(!empty($posts[0]["Id"])){ 
-					$this->viewPost($posts[0]["Id"], $posts[0]);
-				}
+                if (!empty($posts[0]["Id"])) {
+                    $this->viewPost($posts[0]["Id"], $posts[0]);
+                }
             } elseif (count($posts) > 1) {
                 // Post Listeleme
                 foreach ($posts as $key => $val) {
@@ -96,14 +96,18 @@ class Post extends Db
 		<div class="time"><?php echo $data["Time"]; ?> </div>
 		
 		
-		<a class="btn btn-warning btn-sm float-right mx-2" href="<?php echo (!empty($this->manage) ? "manage.php" : "index.php")?>?post=<?php echo $key; ?>" role="button">Görüntüle</a> 
+		<a class="btn btn-warning btn-sm float-right mx-2" href="<?php echo !empty(
+      $this->manage
+  )
+      ? "manage.php"
+      : "index.php"; ?>?post=<?php echo $key; ?>" role="button">Görüntüle</a> 
 		
 		<?php if ($manage) { ?> 
 		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=edit&post=<?php echo $key; ?>" role="button">Düzenle</a> 
 		<a class="btn btn-warning btn-sm float-right mx-2" href="manage.php?action=delete&post=<?php echo $key; ?>" role="button">Sil</a> 
 		<?php } ?>
       </div>
-	  <?php if(!empty($data["Imageurl"])){ ?>
+	  <?php if (!empty($data["Imageurl"])) { ?>
       <div class="col-sm-2 mt-3"> 
         <img
         class="img-thumbnail btn"
@@ -116,30 +120,31 @@ class Post extends Db
 	  <?php } ?>
     </div>
 	<?php
-	}
-	public function createFormPost(){
-	if(!empty($_POST["title"])){
-	$title=$_POST["title"];
-	$content = $_POST["content"];
-	$image = $_POST["image"];
-	$this->addPost($title,$content,$image);
-	echo 'Başarılı bir şekilde eklendi. <a href="manage.php">Geri Dön</a>';
-	}else{
-	echo "Hata";
-	}
-	}
-	public function formPost(){
-	if(!empty($_POST["title"])){
-	$title=$_POST["title"];
-	$content = $_POST["content"];
-	$image = $_POST["image"];
-	$this->addPost($title,$content,$image);
-	}
-	}
+    }
+    public function createFormPost()
+    {
+        if (!empty($_POST["title"])) {
+            $title = $_POST["title"];
+            $content = $_POST["content"];
+            $image = $_POST["image"];
+            $this->addPost($title, $content, $image);
+            echo 'Başarılı bir şekilde eklendi. <a href="manage.php">Geri Dön</a>';
+        } else {
+            echo "Hata";
+        }
+    }
+    public function formPost()
+    {
+        if (!empty($_POST["title"])) {
+            $title = $_POST["title"];
+            $content = $_POST["content"];
+            $image = $_POST["image"];
+            $this->addPost($title, $content, $image);
+        }
+    }
     public function createForm()
-    { 
-	$action = "manage.php?action=store";
-	?>
+    {
+        $action = "manage.php?action=store"; ?>
 	<form method="post" action="<?php echo $action; ?>">
                             <div class="form-group">
                               <label for="exampleFormControlInput1">Title</label>
@@ -156,25 +161,25 @@ class Post extends Db
                             </div>
                             <button type="submit" class="btn btn-success">Gönder/Güncelle</button>
     </form>
-	<?php 
+	<?php
     }
-	public function editForm($id=0)
-    { 
-	$title="";
-	$imageurl="";
-	$content="";
-	
-	if(!empty($id)){
-	// SQL KOMUTLARI
-	$getPostView = $this->getPostView();
-	
-	$title="";
-	$imageurl="";
-	$content="";
-	
-	$action = "manage.php?action=update&post=$id";
-	}
-	?>
+    public function editForm($id = 0)
+    {
+        $title = "";
+        $imageurl = "";
+        $content = "";
+
+        if (!empty($id)) {
+            // SQL KOMUTLARI
+            $getPostView = $this->getPostView();
+
+            $title = "";
+            $imageurl = "";
+            $content = "";
+
+            $action = "manage.php?action=update&post=$id";
+        }
+        ?>
 	<form method="post" action="<?php echo $action; ?>">
                             <div class="form-group">
                               <label for="exampleFormControlInput1">Title</label>
@@ -191,19 +196,20 @@ class Post extends Db
                             </div>
                             <button type="submit" class="btn btn-success">Gönder/Güncelle</button>
     </form>
-	<?php 
+	<?php
     }
-	public function editFormPost($id){
-	if(!empty($_POST["title"])){
-	$title=$_POST["title"];
-	$content = $_POST["content"];
-	$image = $_POST["image"];
-	$this->updatePost($id,$title,$content,$image);
-	}
-	}
+    public function editFormPost($id)
+    {
+        if (!empty($_POST["title"])) {
+            $title = $_POST["title"];
+            $content = $_POST["content"];
+            $image = $_POST["image"];
+            $this->updatePost($id, $title, $content, $image);
+        }
+    }
     public function getDeletePost(int $id)
     {
-		$this->deletePost($id);
-		echo 'Başarılı bir şekilde silindi. <a href="manage.php">Geri Dön</a>';
+        $this->deletePost($id);
+        echo 'Başarılı bir şekilde silindi. <a href="manage.php">Geri Dön</a>';
     }
 }
